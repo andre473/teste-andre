@@ -4,6 +4,7 @@ import com.example.apicaixaeletronico.exception.CaixaEletronicoExcepetion;
 import com.example.apicaixaeletronico.exception.SaqueException;
 import com.example.apicaixaeletronico.models.CaixaEletronico;
 import com.example.apicaixaeletronico.models.Cedula;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,6 +13,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+@Service
 public class CaixaEletronicoService  {
 
     private static final Logger logger = Logger.getLogger(CaixaEletronicoService.class.getName());

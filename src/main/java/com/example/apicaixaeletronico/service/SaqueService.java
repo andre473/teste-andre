@@ -4,6 +4,7 @@ package com.example.apicaixaeletronico.service;
 import com.example.apicaixaeletronico.exception.SaqueException;
 import com.example.apicaixaeletronico.models.CaixaEletronico;
 import com.example.apicaixaeletronico.models.Cedula;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.logging.Logger;
  * Classe responsavél por fazer o processo de saque.
 
  */
+
+@Service
 public class SaqueService  {
 
     private static final Logger logger = Logger.getLogger(SaqueService.class.getName());

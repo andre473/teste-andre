@@ -1,9 +1,8 @@
 package com.example.apicaixaeletronico.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 @Entity
 @Table (name = "cliente")
@@ -11,6 +10,8 @@ public class Cliente {
 
     @Id
     @Column
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment" , strategy ="increment")
     private String cpf;
     @Column
     private int idade;
