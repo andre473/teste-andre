@@ -9,15 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
-public class CaixaEletronicoService  {
+public class CaixaEletronicoService {
 
     private static final Logger logger = Logger.getLogger(CaixaEletronicoService.class.getName());
 
@@ -75,12 +72,13 @@ public class CaixaEletronicoService  {
 
         CaixaEletronico caixaEletronico = new CaixaEletronico();
 
-         caixaEletronico.getCedulas().add(new Cedula(10, 5));
-         caixaEletronico.getCedulas().add(new Cedula(20, 5));
-         caixaEletronico.getCedulas().add(new Cedula(50, 5));
-         caixaEletronico.getCedulas().add(new Cedula(100, 5));
+        caixaEletronico.setCedulas(Collections.emptyList());
+        caixaEletronico.getCedulas().add(new Cedula(10, 5));
+        caixaEletronico.getCedulas().add(new Cedula(20, 5));
+        caixaEletronico.getCedulas().add(new Cedula(50, 5));
+        caixaEletronico.getCedulas().add(new Cedula(100, 5));
 
-         repository.save(caixaEletronico);
+        repository.save(caixaEletronico);
     }
 
 }
