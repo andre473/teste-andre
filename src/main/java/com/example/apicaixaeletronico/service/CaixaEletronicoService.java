@@ -99,6 +99,8 @@ public class CaixaEletronicoService {
     public String depositar(DepositoDTO dto) {
 
         Cliente clienteByCPF = clienteService.getClienteByCPF(dto.getCliente().getCpf());
+
+        return "ok";
     }
 
     public String sacar(SaqueDTO dto) {
@@ -106,6 +108,7 @@ public class CaixaEletronicoService {
         Cliente clienteByCPF = clienteService.getClienteByCPF(dto.getCliente().getCpf());
         saqueService.sacar(dto.getValor());
 
+        return "ok";
     }
 
 
