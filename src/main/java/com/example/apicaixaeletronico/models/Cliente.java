@@ -26,7 +26,7 @@ public class Cliente {
     @Column
     private String nome;
 
-    @Column
+    @Column(name="saldo", columnDefinition="Decimal(10,2) default '0.00'")
     private BigDecimal saldo;
 
     @Override
