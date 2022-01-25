@@ -48,10 +48,8 @@ public class SaqueService  {
             if (quantidade > 0 && cedula.getQuantidade() >= quantidade) {
                 int restante = Math.subtractExact(cedula.getQuantidade(), quantidade);
                 cedula.setQuantidade(restante);
-                /*cedulasRecidas.add(new Cedula(cedula.getValor(), quantidade));
+                cedulasRecidas.add(new Cedula(cedula.getValor(), quantidade));
 
-
-                 */
             }
 
             logger.info("Cédula: R$ " + cedula.getValor() + " Quantidade Restante Caixa: " + quantidade);
