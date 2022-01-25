@@ -16,7 +16,7 @@ public class CaixaEletronico {
 
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -42,6 +42,7 @@ public class CaixaEletronico {
     }
 
     public void calculaTotal() {
+        this.total = getTotal();
     }
 }
 
