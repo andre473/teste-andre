@@ -23,6 +23,7 @@ public class CaixaEletronicoController {
 
     @PutMapping("/saque")
     public String sacar(@RequestBody SaqueDTO dto){
+        System.out.println(dto);
         return service.sacar(dto);
     }
 
