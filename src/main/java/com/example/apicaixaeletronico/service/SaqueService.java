@@ -28,11 +28,11 @@ public class SaqueService  {
         this.caixaEletronicoService = new CaixaEletronicoService();
     }
 
-    public List<Cedula> sacar(BigDecimal valor) {
+    public List<Cedula> sacar(BigDecimal valor, Long caixaEletronicoId) {
         List<Cedula> cedulasRecidas = new ArrayList<>();
 
         isValidateValorSaque(valor);
-        caixaEletronicoService.existsSaldoSuficienteEmCaixa(valor);
+        caixaEletronicoService.existsSaldoSuficienteEmCaixa(valor, caixaEletronicoId);
         CaixaEletronico detalhesCaixaEletronico = caixaEletronicoService.getDetalhesCaixaEletronico();
         processSelecaoCedulas(valor, detalhesCaixaEletronico, cedulasRecidas);
 

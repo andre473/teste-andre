@@ -40,12 +40,12 @@ public class CaixaEletronicoService {
         this.cedulas = depositoEmCaixa(5);
     }
 
-    public boolean existsSaldoSuficienteEmCaixa(BigDecimal valorSaque) {
-        BigDecimal total = saldoDisponivelEmCaixa(cedulas);
-        /*if (valorSaque < total) {
+    public boolean existsSaldoSuficienteEmCaixa(BigDecimal valorSaque, Long caixaEletronicoId) {
+        BigDecimal total = saldoDisponivelEmCaixa(caixaEletronicoId);
+        if (valorSaque.intValue() < total.intValue()) {
             logger.info("Saldo Disponivel em Caixa: {}" + total);
             return true;
-        }*/
+        }
         logger.warning("Saldo em Caixa Insuficiente");
         throw new SaqueException("Saldo em Caixa Insuficiente");
     }
@@ -55,8 +55,14 @@ public class CaixaEletronicoService {
         return new CaixaEletronico(cedulas);
     }
 
-    public BigDecimal saldoDisponivelEmCaixa(List<Cedula> cedulas) {
-        return new CaixaEletronico(cedulas).getTotal();
+    public BigDecimal saldoDisponivelEmCaixa(Long id) {
+
+       CaixaEletronico caixaEletronico= getCaixaEletronicoById(id);
+        return caixaEletronico.getTotal();
+    }
+
+    private CaixaEletronico getCaixaEletronicoById(Long id) {
+        return repository.getById(id);
     }
 
     public List<Cedula> depositoEmCaixa(Integer quantidade) {
@@ -106,7 +112,7 @@ public class CaixaEletronicoService {
     public String sacar(SaqueDTO dto) {
 
         Cliente clienteByCPF = clienteService.getClienteByCPF(dto.getCliente().getCpf());
-        saqueService.sacar(dto.getValor());
+        saqueService.sacar(dto.getValor(), dto.getCaixaEletronico().getId());
 
         return "ok";
     }
