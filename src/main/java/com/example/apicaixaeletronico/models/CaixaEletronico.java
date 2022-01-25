@@ -1,23 +1,40 @@
 package com.example.apicaixaeletronico.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
+import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
+@Entity
+@Table
 public class CaixaEletronico {
 
-    private Integer total;
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @Column
+    private BigDecimal total;
+
+    @OneToMany
     private List<Cedula> cedulas;
+
+    public CaixaEletronico() {
+    }
 
     public CaixaEletronico(List<Cedula> cedulas) {
         this.cedulas = cedulas;
     }
 
-    public Integer getTotal() {
-        return total = cedulas.stream().mapToInt(cedula -> cedula.getQuantidade() * cedula.getValor()).sum();
+    public BigDecimal getTotal() {
+        return total = BigDecimal.valueOf(cedulas.stream().mapToInt(cedula -> cedula.getQuantidade() * cedula.getValor()).sum());
     }
 
     public List<Cedula> getCedulas() {

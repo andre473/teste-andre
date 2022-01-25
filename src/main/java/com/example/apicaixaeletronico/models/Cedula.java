@@ -1,15 +1,28 @@
 package com.example.apicaixaeletronico.models;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
+
+import javax.persistence.*;
 
 
-@Data
+@Getter
+@Setter
+@ToString
+@Entity
+@Table
 @AllArgsConstructor
 public class Cedula {
+    @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long id;
 
+    @Column
     private Integer valor;
+    @Column
     private Integer quantidade;
 
+    public Cedula() {
+    }
 }
