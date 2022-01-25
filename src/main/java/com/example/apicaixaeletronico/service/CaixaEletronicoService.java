@@ -5,6 +5,7 @@ import com.example.apicaixaeletronico.exception.SaqueException;
 import com.example.apicaixaeletronico.models.CaixaEletronico;
 import com.example.apicaixaeletronico.models.Cedula;
 import com.example.apicaixaeletronico.repositories.CaixaEletronicoRepository;
+import com.example.apicaixaeletronico.repositories.CedulaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,9 @@ public class CaixaEletronicoService {
 
     @Autowired
     private CaixaEletronicoRepository repository;
+
+    @Autowired
+    private CedulaService cedulaService;
 
     private List<Cedula> cedulas;
 
@@ -73,10 +77,10 @@ public class CaixaEletronicoService {
         CaixaEletronico caixaEletronico = new CaixaEletronico();
 
         caixaEletronico.setCedulas(new ArrayList<Cedula>());
-        caixaEletronico.getCedulas().add(new Cedula(10, 5));
-        caixaEletronico.getCedulas().add(new Cedula(20, 5));
-        caixaEletronico.getCedulas().add(new Cedula(50, 5));
-        caixaEletronico.getCedulas().add(new Cedula(100,5));
+        caixaEletronico.getCedulas().add(cedulaService.save( new Cedula(10, 5)));
+        caixaEletronico.getCedulas().add(cedulaService.save(new Cedula(20, 5)));
+        caixaEletronico.getCedulas().add(cedulaService.save(new Cedula(50, 5)));
+        caixaEletronico.getCedulas().add(cedulaService.save(new Cedula(100,5)));
 
         repository.save(caixaEletronico);
     }
