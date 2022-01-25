@@ -62,7 +62,7 @@ public class CaixaEletronicoService {
     }
 
     private CaixaEletronico getCaixaEletronicoById(Long id) {
-        return repository.getById(id);
+        return repository.findById(id).get();
     }
 
     public List<Cedula> depositoEmCaixa(Integer quantidade) {
