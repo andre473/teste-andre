@@ -72,11 +72,11 @@ public class CaixaEletronicoService {
 
         CaixaEletronico caixaEletronico = new CaixaEletronico();
 
-        caixaEletronico.setCedulas(Collections.emptyList());
+        caixaEletronico.setCedulas(new ArrayList<Cedula>());
         caixaEletronico.getCedulas().add(new Cedula(10, 5));
         caixaEletronico.getCedulas().add(new Cedula(20, 5));
         caixaEletronico.getCedulas().add(new Cedula(50, 5));
-        caixaEletronico.getCedulas().add(new Cedula(100, 5));
+        caixaEletronico.getCedulas().add(new Cedula(100,5));
 
         repository.save(caixaEletronico);
     }
