@@ -23,7 +23,7 @@ public class CaixaEletronico {
     @Column
     private BigDecimal total;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Cedula> cedulas;
 
     public CaixaEletronico() {
@@ -34,7 +34,7 @@ public class CaixaEletronico {
     }
 
     public BigDecimal getTotal() {
-        return total = BigDecimal.valueOf(cedulas.stream().mapToInt(cedula -> cedula.getQuantidade() * cedula.getValor()).sum());
+        return total;
     }
 
     public List<Cedula> getCedulas() {
@@ -42,7 +42,7 @@ public class CaixaEletronico {
     }
 
     public void calculaTotal() {
-        this.total = getTotal();
+        this.total = BigDecimal.valueOf(cedulas.stream().mapToInt(cedula -> cedula.getQuantidade() * cedula.getValor()).sum());
     }
 }
 
