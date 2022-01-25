@@ -40,5 +40,8 @@ public class CaixaEletronico {
     public List<Cedula> getCedulas() {
         return cedulas;
     }
+
+    public void calculaTotal() {
+    }
 }
 

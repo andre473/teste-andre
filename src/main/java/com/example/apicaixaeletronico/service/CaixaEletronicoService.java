@@ -82,6 +82,8 @@ public class CaixaEletronicoService {
         caixaEletronico.getCedulas().add(cedulaService.save(new Cedula(50, 5)));
         caixaEletronico.getCedulas().add(cedulaService.save(new Cedula(100,5)));
 
+        caixaEletronico.calculaTotal();
+
         repository.save(caixaEletronico);
     }
 
