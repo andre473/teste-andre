@@ -25,4 +25,9 @@ public class Cedula {
 
     public Cedula() {
     }
+
+    public Cedula(Integer valor, Integer quantidade) {
+        this.valor=valor;
+        this.quantidade=quantidade;
+    }
 }

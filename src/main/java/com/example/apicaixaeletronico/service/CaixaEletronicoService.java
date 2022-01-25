@@ -4,6 +4,8 @@ import com.example.apicaixaeletronico.exception.CaixaEletronicoExcepetion;
 import com.example.apicaixaeletronico.exception.SaqueException;
 import com.example.apicaixaeletronico.models.CaixaEletronico;
 import com.example.apicaixaeletronico.models.Cedula;
+import com.example.apicaixaeletronico.repositories.CaixaEletronicoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -18,6 +20,9 @@ import java.util.stream.Collectors;
 public class CaixaEletronicoService  {
 
     private static final Logger logger = Logger.getLogger(CaixaEletronicoService.class.getName());
+
+    @Autowired
+    private CaixaEletronicoRepository repository;
 
     private List<Cedula> cedulas;
 
@@ -65,5 +70,18 @@ public class CaixaEletronicoService  {
     public void setCedulas(List<Cedula> cedulas) {
         this.cedulas = cedulas;
     }
+
+    public void iniciaCaixa() {
+
+        CaixaEletronico caixaEletronico = new CaixaEletronico();
+
+         caixaEletronico.getCedulas().add(new Cedula(10, 5));
+         caixaEletronico.getCedulas().add(new Cedula(20, 5));
+         caixaEletronico.getCedulas().add(new Cedula(50, 5));
+         caixaEletronico.getCedulas().add(new Cedula(100, 5));
+
+         repository.save(caixaEletronico);
+    }
+
 }
 
