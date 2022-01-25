@@ -1,5 +1,6 @@
 package com.example.apicaixaeletronico.controller;
 
+import com.example.apicaixaeletronico.dto.DepositoDTO;
 import com.example.apicaixaeletronico.dto.SaqueDTO;
 import com.example.apicaixaeletronico.service.CaixaEletronicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,11 @@ public class CaixaEletronicoController {
 
     @PutMapping("/saque")
     public String sacar(@RequestBody SaqueDTO dto){
-        return "OK";
+        return service.sacar(dto);
     }
 
     @PutMapping("/deposito")
-    public String deposito(){
-        return "OK";
+    public String deposito(@RequestBody DepositoDTO dto){
+        return service.depositar(dto);
     }
 }

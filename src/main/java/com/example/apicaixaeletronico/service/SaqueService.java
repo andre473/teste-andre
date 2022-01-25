@@ -6,6 +6,7 @@ import com.example.apicaixaeletronico.models.CaixaEletronico;
 import com.example.apicaixaeletronico.models.Cedula;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +28,7 @@ public class SaqueService  {
         this.caixaEletronicoService = new CaixaEletronicoService();
     }
 
-    public List<Cedula> sacar(Integer valor) {
+    public List<Cedula> sacar(BigDecimal valor) {
         List<Cedula> cedulasRecidas = new ArrayList<>();
 
         isValidateValorSaque(valor);
@@ -38,8 +39,9 @@ public class SaqueService  {
         return cedulasRecidas;
     }
 
-    private void processSelecaoCedulas(Integer valor, CaixaEletronico detalhesCaixaEletronico, List<Cedula> cedulasRecidas) {
+    private void processSelecaoCedulas(BigDecimal valorOriginal, CaixaEletronico detalhesCaixaEletronico, List<Cedula> cedulasRecidas) {
         logger.info("Processo de Seleção de Células");
+        int valor=valorOriginal.intValue();
         for (Cedula cedula : detalhesCaixaEletronico.getCedulas()) {
             int quantidade = valor / cedula.getValor();
 
@@ -58,8 +60,8 @@ public class SaqueService  {
     }
 
 
-    private boolean isValidateValorSaque(Integer valorSaque) {
-        if (Objects.nonNull(valorSaque) && valorSaque % 10 == 0) {
+    private boolean isValidateValorSaque(BigDecimal valorSaque) {
+        if (Objects.nonNull(valorSaque) && valorSaque.intValue() % 10 == 0) {
             logger.info("Valor Válido para Saque.");
             return true;
         }

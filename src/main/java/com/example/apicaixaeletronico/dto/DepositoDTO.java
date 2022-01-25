@@ -7,7 +7,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-public class SaqueDTO {
+public class DepositoDTO {
 
     private BigDecimal valor;
     private Cliente cliente;

@@ -10,23 +10,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClienteService {
 
-    public String findAll(){
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    public String findAll() {
         return "findAll";
     }
 
-    @Service
-    @RequiredArgsConstructor
-    public class CadastroService {
-
-        @Autowired
-        private ClienteRepository clienteRepository;
-
-        public Cliente salvarCliente(Cliente cliente) {
-            return clienteRepository.save(cliente);
-        }
+    public Cliente getClienteByCPF(String cpf) {
+        return clienteRepository.findByCpf(cpf);
     }
 
-
-
+    public Cliente salvarCliente(Cliente cliente) {
+        return clienteRepository.save(cliente);
+    }
 }
+
+
+
+
 

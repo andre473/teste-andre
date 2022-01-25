@@ -1,11 +1,13 @@
 package com.example.apicaixaeletronico.service;
 
+import com.example.apicaixaeletronico.dto.DepositoDTO;
+import com.example.apicaixaeletronico.dto.SaqueDTO;
 import com.example.apicaixaeletronico.exception.CaixaEletronicoExcepetion;
 import com.example.apicaixaeletronico.exception.SaqueException;
 import com.example.apicaixaeletronico.models.CaixaEletronico;
 import com.example.apicaixaeletronico.models.Cedula;
+import com.example.apicaixaeletronico.models.Cliente;
 import com.example.apicaixaeletronico.repositories.CaixaEletronicoRepository;
-import com.example.apicaixaeletronico.repositories.CedulaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +16,20 @@ import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+
 @Service
 public class CaixaEletronicoService {
 
     private static final Logger logger = Logger.getLogger(CaixaEletronicoService.class.getName());
 
     @Autowired
+    private SaqueService saqueService;
+
+    @Autowired
     private CaixaEletronicoRepository repository;
+
+    @Autowired
+    private ClienteService clienteService;
 
     @Autowired
     private CedulaService cedulaService;
@@ -31,7 +40,7 @@ public class CaixaEletronicoService {
         this.cedulas = depositoEmCaixa(5);
     }
 
-    public boolean existsSaldoSuficienteEmCaixa(Integer valorSaque) {
+    public boolean existsSaldoSuficienteEmCaixa(BigDecimal valorSaque) {
         BigDecimal total = saldoDisponivelEmCaixa(cedulas);
         /*if (valorSaque < total) {
             logger.info("Saldo Disponivel em Caixa: {}" + total);
@@ -77,15 +86,28 @@ public class CaixaEletronicoService {
         CaixaEletronico caixaEletronico = new CaixaEletronico();
 
         caixaEletronico.setCedulas(new ArrayList<Cedula>());
-        caixaEletronico.getCedulas().add(cedulaService.save( new Cedula(10, 5)));
+        caixaEletronico.getCedulas().add(cedulaService.save(new Cedula(10, 5)));
         caixaEletronico.getCedulas().add(cedulaService.save(new Cedula(20, 5)));
         caixaEletronico.getCedulas().add(cedulaService.save(new Cedula(50, 5)));
-        caixaEletronico.getCedulas().add(cedulaService.save(new Cedula(100,5)));
+        caixaEletronico.getCedulas().add(cedulaService.save(new Cedula(100, 5)));
 
         caixaEletronico.calculaTotal();
 
         repository.save(caixaEletronico);
     }
+
+    public String depositar(DepositoDTO dto) {
+
+        Cliente clienteByCPF = clienteService.getClienteByCPF(dto.getCliente().getCpf());
+    }
+
+    public String sacar(SaqueDTO dto) {
+
+        Cliente clienteByCPF = clienteService.getClienteByCPF(dto.getCliente().getCpf());
+        saqueService.sacar(dto.getValor());
+
+    }
+
 
 }
 
