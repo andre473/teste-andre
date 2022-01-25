@@ -28,9 +28,10 @@ public class SaqueService  {
         this.caixaEletronicoService = new CaixaEletronicoService();
     }
 
+
     public List<Cedula> sacar(BigDecimal valor, Long caixaEletronicoId) {
         List<Cedula> cedulasRecidas = new ArrayList<>();
-
+        System.out.println("caixaEletronicoID " + caixaEletronicoId);
         isValidateValorSaque(valor);
         caixaEletronicoService.existsSaldoSuficienteEmCaixa(valor, caixaEletronicoId);
         CaixaEletronico detalhesCaixaEletronico = caixaEletronicoService.getDetalhesCaixaEletronico();
