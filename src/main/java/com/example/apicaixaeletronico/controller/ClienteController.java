@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.*;
 public class ClienteController {
 
     @Autowired
-    private ClienteService.CadastroService cadastroService;
-
-    @Autowired
     private ClienteService clienteService;
 
 
@@ -28,7 +25,7 @@ public class ClienteController {
     @PostMapping( produces = "application/json")
     public ResponseEntity<Cliente> salvaCliente(@RequestBody Cliente cliente){
 
-        Cliente clienteSalvo = cadastroService.salvarCliente(cliente);
+        Cliente clienteSalvo = clienteService.salvarCliente(cliente);
         return ResponseEntity.ok().body(cliente);
     }
 }
