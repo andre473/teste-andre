@@ -10,11 +10,10 @@ public class Cliente {
 
     @Id
     @Column
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment" , strategy ="increment")
+
     private String cpf;
     @Column
-    private int idade;
+    private Integer idade;
     @Column
     private String nome;
 
