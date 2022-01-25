@@ -58,17 +58,19 @@ public class CaixaEletronicoService {
     public BigDecimal saldoDisponivelEmCaixa(Long id) {
 
        CaixaEletronico caixaEletronico= getCaixaEletronicoById(id);
+
+        System.out.println(caixaEletronico);
         return caixaEletronico.getTotal();
     }
 
     private CaixaEletronico getCaixaEletronicoById(Long id) {
-        return repository.findById(id).get();
+        return repository.findById(id).orElseGet(null);
     }
 
     public List<Cedula> depositoEmCaixa(Integer quantidade) {
         List<Cedula> cedulas = new ArrayList<>();
         if (Objects.nonNull(quantidade) && quantidade > 0) {
-         /*   cedulas.add(new Cedula(10, quantidade));
+         /* cedulas.add(new Cedula(10, quantidade));
             cedulas.add(new Cedula(20, quantidade));
             cedulas.add(new Cedula(50, quantidade));
             cedulas.add(new Cedula(100, quantidade));
