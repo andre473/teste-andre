@@ -23,18 +23,14 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
-                .pathMapping("/")
                 .apiInfo(metaData());
 
     }
 
     private ApiInfo metaData() {
         return new ApiInfoBuilder()
-                .title("Spring Boot REST API")
-                .description("\"Spring Boot REST API for greeting people\"")
-                .version("1.0.0")
-                .license("Apache License Version 2.0")
-                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
+                .title("Caixa Eletronico - Teste André")
+                .version("0.0.1")
                 .build();
     }
 
