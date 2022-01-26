@@ -15,7 +15,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Table (name = "cliente")
+@Table(name = "cliente")
 public class Cliente {
 
     @Id
@@ -26,7 +26,7 @@ public class Cliente {
     @Column
     private String nome;
 
-    @Column(name="saldo", columnDefinition="Decimal(10,2) default '0.00'")
+    @Column(name = "saldo", columnDefinition = "Decimal(10,2) default '0.00'")
     private BigDecimal saldo;
 
     @Override

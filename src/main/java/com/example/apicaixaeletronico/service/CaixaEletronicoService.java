@@ -1,17 +1,17 @@
 package com.example.apicaixaeletronico.service;
 
+import com.example.apicaixaeletronico.dto.CedulaDTO;
 import com.example.apicaixaeletronico.dto.DepositoDTO;
 import com.example.apicaixaeletronico.dto.SaqueDTO;
 import com.example.apicaixaeletronico.exception.CaixaEletronicoExcepetion;
-import com.example.apicaixaeletronico.exception.SaqueException;
 import com.example.apicaixaeletronico.models.CaixaEletronico;
 import com.example.apicaixaeletronico.models.Cedula;
 import com.example.apicaixaeletronico.models.Cliente;
 import com.example.apicaixaeletronico.repositories.CaixaEletronicoRepository;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -40,29 +40,6 @@ public class CaixaEletronicoService {
         this.cedulas = depositoEmCaixa(5);
     }
 
-    public boolean existsSaldoSuficienteEmCaixa(BigDecimal valorSaque, Long caixaEletronicoId) {
-        BigDecimal total = saldoDisponivelEmCaixa(caixaEletronicoId);
-        if (valorSaque.intValue() < total.intValue()) {
-            logger.info("Saldo Disponivel em Caixa: {}" + total);
-            return true;
-        }
-        logger.warning("Saldo em Caixa Insuficiente");
-        throw new SaqueException("Saldo em Caixa Insuficiente");
-    }
-
-
-    public CaixaEletronico getDetalhesCaixaEletronico() {
-        return new CaixaEletronico(cedulas);
-    }
-
-    public BigDecimal saldoDisponivelEmCaixa(Long id) {
-
-       CaixaEletronico caixaEletronico= getCaixaEletronicoById(id);
-
-        System.out.println(caixaEletronico);
-        return caixaEletronico.getTotal();
-    }
-
     private CaixaEletronico getCaixaEletronicoById(Long id) {
         return repository.findById(id).orElseGet(null);
     }
@@ -83,10 +60,6 @@ public class CaixaEletronicoService {
         }
 
         throw new CaixaEletronicoExcepetion("Deposito no caixa eletronico inválido. Quantidade de notas não informada");
-    }
-
-    public void setCedulas(List<Cedula> cedulas) {
-        this.cedulas = cedulas;
     }
 
     public void iniciaCaixa() {
@@ -114,11 +87,9 @@ public class CaixaEletronicoService {
     public String sacar(SaqueDTO dto) {
 
         Cliente clienteByCPF = clienteService.getClienteByCPF(dto.getCliente().getCpf());
-        saqueService.sacar(dto.getValor(), dto.getCaixaEletronico().getId());
-
-        return "ok";
+        CaixaEletronico caixaEletronicoById = getCaixaEletronicoById(dto.getCaixaEletronico().getId());
+        List<CedulaDTO> saque = saqueService.sacar(dto.getValor(), clienteByCPF, caixaEletronicoById);
+        return new Gson().toJson(saque);
     }
-
-
 }
 

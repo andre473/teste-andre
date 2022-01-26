@@ -4,16 +4,21 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import static java.util.Objects.nonNull;
+
+@Table
+@Entity
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table
 public class CaixaEletronico {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,22 +28,13 @@ public class CaixaEletronico {
     @Column
     private BigDecimal total;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Cedula> cedulas;
 
-    public CaixaEletronico() {
-    }
-
-    public CaixaEletronico(List<Cedula> cedulas) {
-        this.cedulas = cedulas;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
     public List<Cedula> getCedulas() {
-        return cedulas;
+        return nonNull(cedulas)
+                ? cedulas.stream().sorted(Comparator.comparingInt(Cedula::getValor).reversed()).collect(Collectors.toList())
+                : Collections.emptyList();
     }
 
     public void calculaTotal() {
